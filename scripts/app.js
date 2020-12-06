@@ -125,3 +125,18 @@ dataBase.collection(TURMA).doc('qCmvCRUq4lLlQWBMYLHi').update(
   }
 ).then(()=> console.log('Documento atualizado com sucesso!'))
 .catch(err=> console.log(err));
+
+// APAGANDO CAMPOS E DOCUMENTOS
+
+/* apagando campos */
+dataBase.collection(TURMA).doc('078t8RlFlenpDYIL0ds5').update(
+  {
+    notas :firebase.firestore.FieldValue.delete()
+  }
+).then(()=> console.log('Campo deletado com sucesso'))
+.catch(err=> console.log(err));
+
+/* apagando o documento inteiro */
+dataBase.collection(TURMA).doc('voglkwqs9cqlKGk6tbwM').delete()
+.then(()=> console.log('Documento Apagado!'))
+.catch(err => console.log(err));
