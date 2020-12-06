@@ -54,11 +54,74 @@
 
 const TURMA = 'turmaA';
 
+/* criando um objeto novo*/
 let dataBase = firebase.firestore();
 dataBase.collection(TURMA).add({   // .add = adicionando um objeto
   nome:'Marcos',
   sobrenome: 'Da Silva Sauro',
   notas:{nota1: 5, nota2: 7.5}
 }).then((doc)=>{
-  console.log('Documento inserido com sucesso!', doc);
+  console.log( doc);
 }).catch(err => console.log(err));
+
+/* definindo um id */
+dataBase.collection(TURMA).doc('Aluno Novo').set(
+  {nome:'Conan',sobrenome:'da Ciméria',notas:{nota1:3, nota2:5}}
+).then(()=>{
+  console.log('Id definido com sucesso!');
+}).catch(err=> console.log('Deu merda'))
+
+
+/*alterando documento*/
+dataBase.collection(TURMA).doc('eclydPyc0e1Z1L6FwQAC').set(  // .set = sobrescreve ou altera
+  { nome:'Igor', sobrenome:'Ferreira',notas:{nota1:6.6, nota2 :5}}
+  ).then(()=> {
+    console.log('Documento inserido com sucesso!');
+  }).catch(err => {
+    console.log(err)
+  });
+
+/* Dica 1 caso queira mudar só algum item , use  merge */ 
+dataBase.collection(TURMA).doc('MfUiy10hgCGhc1a8UIYR').set(  // .set = sobrescreve ou altera
+  {advertências:{data:'1 de Dezembro', descrição: 'repetiu de ano'}}, {merge:true} // mesclar
+  ).then(()=> {
+    console.log('Documento inserido com sucesso!');
+  }).catch(err => {
+    console.log(err)
+  });
+/* Dica 2  use update para atualizar os dados*/
+dataBase.collection(TURMA).doc('OoGVnSL8JQvHFhfJhoI9').update(
+  {notas:{nota1:3,nota2:9.6}}
+).then(()=>{
+  console.log('Documento atualizado com sucesso!')
+}).catch(err=>{
+  console.log(err)
+})
+
+/*inserindo e  atualizando array*/
+/* inserindo */
+dataBase.collection(TURMA).doc('qCmvCRUq4lLlQWBMYLHi').update(
+  {
+    cidades:['Bahia','Minas Gerais']
+  }
+
+).then(()=> console.log('Documento atualizado com sucesso!'))
+.catch(err=> console.log(err));
+
+/*atualizando o array*/
+
+dataBase.collection(TURMA).doc('qCmvCRUq4lLlQWBMYLHi').update(
+  {
+    cidades:firebase.firestore.FieldValue.arrayUnion('Vitoria','Rio de janeiro')
+  }
+).then(()=> console.log('Documento atualizado com sucesso!'))
+.catch(err=> console.log(err));
+
+/* removendo*/
+
+dataBase.collection(TURMA).doc('qCmvCRUq4lLlQWBMYLHi').update(
+  {
+    cidades:firebase.firestore.FieldValue.arrayRemove('Rio de janeiro')
+  }
+).then(()=> console.log('Documento atualizado com sucesso!'))
+.catch(err=> console.log(err));
