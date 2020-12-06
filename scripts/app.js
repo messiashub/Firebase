@@ -28,11 +28,22 @@ let dataBase = firebase.firestore();
 
  }) */
 
- let docReferencia = dataBase.collection('turmaA').doc('JfHdIRpWVfqlo5vER9ov');
+ let docReferencia = dataBase.collection('turmaA').doc('JfHdIRpWVfqlo5vER9ov'); // id
  docReferencia.get().then((doc)=>{
    /* let aluno = doc.data(); */
    console.log(doc.data().nome);
    console.log(doc.data().notas)
    console.log(doc.data().advertências);
  })
+
+// BUSCAS - SELECIONANDO  MELHOR OS DOCUMENTOS
+
+dataBase.collection('turmaA').where('nome','>=','Claudinei').get()
+          .then(snapshot =>{
+            snapshot.forEach((doc)=>{
+              let aluno = doc.data();
+              console.log(aluno.nome,aluno.sobrenome,aluno.notas);
+            })
+          })
+
 
