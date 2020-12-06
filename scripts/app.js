@@ -14,7 +14,7 @@
  
   // LENDO OS DOCUMENTOS DA COLEÇÃO
 
-let dataBase = firebase.firestore();
+//let dataBase = firebase.firestore();
 // lendo todos os dados da coleção
 /* dataBase.collection("turmaA").get()
           .then((snapshot)=>{
@@ -28,22 +28,37 @@ let dataBase = firebase.firestore();
 
  }) */
 
- let docReferencia = dataBase.collection('turmaA').doc('JfHdIRpWVfqlo5vER9ov'); // id
+/*let docReferencia = dataBase.collection('turmaA').doc('JfHdIRpWVfqlo5vER9ov'); // id
  docReferencia.get().then((doc)=>{
    /* let aluno = doc.data(); */
-   console.log(doc.data().nome);
-   console.log(doc.data().notas)
-   console.log(doc.data().advertências);
- })
-
+ //  console.log(doc.data().nome);
+ //  console.log(doc.data().notas)
+ //  console.log(doc.data().advertências);
+ /*})*/ // */
+ 
 // BUSCAS - SELECIONANDO  MELHOR OS DOCUMENTOS
 
-dataBase.collection('turmaA').where('nome','>=','Claudinei').get()
-          .then(snapshot =>{
+/* dataBase.collection('turmaA').where('nome','>=','Claudinei').get() // .where = onde ,  .get = pegue
+          .then(snapshot =>{                                       // .then = então
             snapshot.forEach((doc)=>{
               let aluno = doc.data();
               console.log(aluno.nome,aluno.sobrenome,aluno.notas);
             })
           })
 
+ */
 
+
+// CRIANDO E  ALTERANDO DOCUMENTOS
+
+
+const TURMA = 'turmaA';
+
+let dataBase = firebase.firestore();
+dataBase.collection(TURMA).add({   // .add = adicionando um objeto
+  nome:'Marcos',
+  sobrenome: 'Da Silva Sauro',
+  notas:{nota1: 5, nota2: 7.5}
+}).then((doc)=>{
+  console.log('Documento inserido com sucesso!', doc);
+}).catch(err => console.log(err));
